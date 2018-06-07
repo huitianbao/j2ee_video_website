@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MyHtml.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">  
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <!--  
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />  
+    <link href="favicon.ico" rel="Bookmark" type="image/x-icon" />  
+    -->  
+    <link href="" rel="stylesheet" />  
+    <style type="text/css">  
+         
+        #c1{background:#f1f1f1;}  
+        span{color:#FFFFFF;}  
+    </style>  
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body style="height: 209px; ">
+  <input type="file" id="file" onchange="onInputFileChange()">  
+<div style="position:relative; width:100px; height:100px;"><video id="vidio_id" controls autoplay loop height="600" width="300">Your browser can't support HTML5 Audio</video>
+<script>  
+function onInputFileChange() {  
+   var file = document.getElementById('file').files[0];  
+   var url = URL.createObjectURL(file);  
+   console.log(url);  
+   document.getElementById("vidio_id").src = url;  
+}  
+</script>
+
+<div style="position:absolute; width:600; height:300; top:0; left:0; z-inden:1; filter:alpha(opacity=50);"">
+<canvas id="c1" canvas style="width: 600;height:300;background-color: rgba(0,0,0,0.2)"  >
+    <span>该浏览器不支持html5</span>  
+</canvas>
+</div>
+<br />
+  
+<input type="text" name='smsg' value="" id="smsg" placeholder="请输入内容"  /> <button id="send">发送</button>  
+<!--<button id='start' onclick="startFun('test')">Start</button>  
+<button id='stop' onclick="stopFun()">Stop</button>-->  
+<script type="text/javascript" src="./jquerymin.js"></script>  
+<script type="text/javascript">     
+    var sv;  
+    var sId;  
+    var oC;  
+    var oGC;     
+    var numW;  
+    var numH;  
+    var maxTxt = 600;
+
+
+
+  
+$(function(){  
+$("#send").click(function(){  
+        clearInterval(sId);  
+        var m = $("#smsg").val();  
+        //alert(m);  
+        startFun(m);  
+        $("#smsg").val('')  
+    });  
+})  
+    function doDraw(msg){  
+        oC = document.getElementById('c1');  
+        oGC = oC.getContext('2d');     
+        numW = oC.width;  
+        numH = oC.height;  
+        console.log(numW+'-'+numH);  
+  
+        oGC.fillStyle="white";  
+        //oGC.fillRect(0,0,numW,0);  
+        oGC.fillText(msg,numW,50);  
+    }  
+    function startFun(msg){  
+        doDraw(msg);  
+        sId = setInterval(function(){       
+            if (numW > -610)  
+            {  
+                numW--;  
+                console.log(numW);  
+                oGC.clearRect(0,0,oC.width,oC.height);  
+                oGC.fillText(msg,numW,100);  
+            } else {  
+                oGC.clearRect(0,0,oC.width,oC.height);  
+                clearInterval(sId);  
+            }  
+        },10);   
+    }  
+    </script>
+ 
+ 
+</div>
+  </body>
+</html>
